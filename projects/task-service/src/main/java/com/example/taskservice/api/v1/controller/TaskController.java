@@ -2,6 +2,9 @@ package com.example.taskservice.api.v1.controller;
 
 import com.example.taskservice.api.v1.dto.CreateTaskRequestDto;
 import com.example.taskservice.api.v1.response.ApiResponse;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,7 +21,7 @@ public class TaskController {
     }
 
     @PostMapping("/createTask")
-    public ApiResponse<CreateTaskRequestDto> createTask(@RequestBody CreateTaskRequestDto requestDto){
+    public ApiResponse<CreateTaskRequestDto> createTask(@Valid @RequestBody CreateTaskRequestDto requestDto){
         return new ApiResponse<>(
                 true,
                 "Task created Successfully.",
