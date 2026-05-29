@@ -13,26 +13,44 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationException(MethodArgumentNotValidException exception){
-        Map<String, String> errors = new HashMap<>();
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ApiResponse<String>> handleResourceNotFoundException(
+            ResourceNotFoundException exception
+    ) {
 
-        exception.getBindingResult()
-                .getFieldErrors()
-                .forEach(error -> errors.put(
-                        error.getField(),
-                        error.getDefaultMessage()
-                ));
-
-        ApiResponse<Map<String, String>> response =
+        ApiResponse<String> response =
                 new ApiResponse<>(
                         false,
-                        "validation failed.",
-                        errors
+                        exception.getMessage(),
+                        null
                 );
+
         return new ResponseEntity<>(
                 response,
-                HttpStatus.BAD_REQUEST
+                HttpStatus.NOT_FOUND
         );
     }
+
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationException(MethodArgumentNotValidException exception){
+//        Map<String, String> errors = new HashMap<>();
+//
+//        exception.getBindingResult()
+//                .getFieldErrors()
+//                .forEach(error -> errors.put(
+//                        error.getField(),
+//                        error.getDefaultMessage()
+//                ));
+//
+//        ApiResponse<Map<String, String>> response =
+//                new ApiResponse<>(
+//                        false,
+//                        "validation failed.",
+//                        errors
+//                );
+//        return new ResponseEntity<>(
+//                response,
+//                HttpStatus.BAD_REQUEST
+//        );
+//    }
 }

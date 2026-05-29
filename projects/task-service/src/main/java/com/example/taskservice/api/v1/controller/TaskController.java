@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/tasks")
 public class TaskController {
@@ -36,6 +38,28 @@ public class TaskController {
                 true,
                 "Task created Successfully.",
                 createdTask
+        );
+    }
+
+    @GetMapping("/all")
+    public ApiResponse<List<Task>> getAllTask(){
+        List<Task> tasks =  taskService.getAllTasks();
+
+        return new ApiResponse<>(
+                true,
+                "Task fetched Successfully.",
+                tasks
+        );
+    }
+
+    @GetMapping("/{id}")
+    public ApiResponse<Task> getTaskById(@PathVariable Long id){
+        Task task = taskService.getTaskById(id);
+
+        return new ApiResponse<>(
+                true,
+                "Task fetched successfully.",
+                task
         );
     }
 }
