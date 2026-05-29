@@ -3,6 +3,7 @@ package com.example.taskservice.api.v1.controller;
 import com.example.taskservice.api.v1.dto.CreateTaskRequestDto;
 import com.example.taskservice.api.v1.response.ApiResponse;
 
+import com.example.taskservice.entity.Task;
 import com.example.taskservice.service.TaskService;
 import jakarta.validation.Valid;
 
@@ -28,9 +29,9 @@ public class TaskController {
     }
 
     @PostMapping("/createTask")
-    public ApiResponse<CreateTaskRequestDto> createTask(@Valid @RequestBody CreateTaskRequestDto requestDto){
+    public ApiResponse<Task> createTask(@Valid @RequestBody CreateTaskRequestDto requestDto){
 
-        CreateTaskRequestDto createdTask = taskService.createTask(requestDto);
+        Task createdTask = taskService.createTask(requestDto);
         return new ApiResponse<>(
                 true,
                 "Task created Successfully.",
