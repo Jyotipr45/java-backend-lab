@@ -106,6 +106,22 @@ com.example.taskservice
 ├── repository
 ├── service
 ```
+# Architecture
+
+The application follows layered architecture:
+
+Controller → Service → Repository → Database
+
+## Layers
+
+### Controller
+Handles HTTP requests and responses.
+
+### Service
+Contains business logic and application workflows.
+
+### Repository
+Will handle database operations using Spring Data JPA.
 
 ---
 
