@@ -1,4 +1,4 @@
-package com.example.taskservice.api.v1.dto;
+package com.jash.taskservice.api.v1.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

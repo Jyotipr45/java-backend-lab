@@ -1,12 +1,11 @@
-package com.example.taskservice.api.v1.controller;
+package com.jash.taskservice.api.v1.controller;
 
-import com.example.taskservice.api.v1.dto.CreateTaskRequestDto;
-import com.example.taskservice.api.v1.dto.TaskResponseDto;
-import com.example.taskservice.api.v1.dto.UpdateTaskRequestDto;
-import com.example.taskservice.api.v1.response.ApiResponse;
+import com.jash.taskservice.api.v1.dto.CreateTaskRequestDto;
+import com.jash.taskservice.api.v1.dto.TaskResponseDto;
+import com.jash.taskservice.api.v1.dto.UpdateTaskRequestDto;
+import com.jash.taskservice.api.v1.response.ApiResponse;
 
-import com.example.taskservice.entity.Task;
-import com.example.taskservice.service.TaskService;
+import com.jash.taskservice.service.TaskService;
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;

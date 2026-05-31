@@ -1,4 +1,4 @@
-package com.example.taskservice.exception;
+package com.jash.taskservice.exception;
 
 public class ResourceNotFoundException extends RuntimeException{
     public ResourceNotFoundException(String message){

@@ -1,4 +1,4 @@
-package com.example.taskservice.api.v1.response;
+package com.jash.taskservice.api.v1.response;
 
 import lombok.Getter;
 import lombok.Setter;

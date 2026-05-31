@@ -1,9 +1,8 @@
-package com.example.taskservice.service;
+package com.jash.taskservice.service;
 
-import com.example.taskservice.api.v1.dto.CreateTaskRequestDto;
-import com.example.taskservice.api.v1.dto.TaskResponseDto;
-import com.example.taskservice.api.v1.dto.UpdateTaskRequestDto;
-import com.example.taskservice.entity.Task;
+import com.jash.taskservice.api.v1.dto.CreateTaskRequestDto;
+import com.jash.taskservice.api.v1.dto.TaskResponseDto;
+import com.jash.taskservice.api.v1.dto.UpdateTaskRequestDto;
 
 import java.util.List;
 

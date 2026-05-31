@@ -1,12 +1,12 @@
-package com.example.taskservice.service;
+package com.jash.taskservice.service;
 
-import com.example.taskservice.api.v1.dto.CreateTaskRequestDto;
-import com.example.taskservice.api.v1.dto.TaskResponseDto;
-import com.example.taskservice.api.v1.dto.UpdateTaskRequestDto;
-import com.example.taskservice.common.mapper.TaskMapper;
-import com.example.taskservice.entity.Task;
-import com.example.taskservice.exception.ResourceNotFoundException;
-import com.example.taskservice.repository.TaskRepository;
+import com.jash.taskservice.api.v1.dto.CreateTaskRequestDto;
+import com.jash.taskservice.api.v1.dto.TaskResponseDto;
+import com.jash.taskservice.api.v1.dto.UpdateTaskRequestDto;
+import com.jash.taskservice.common.mapper.TaskMapper;
+import com.jash.taskservice.entity.Task;
+import com.jash.taskservice.exception.ResourceNotFoundException;
+import com.jash.taskservice.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
