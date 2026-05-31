@@ -1,6 +1,7 @@
 package com.example.taskservice.api.v1.controller;
 
 import com.example.taskservice.api.v1.dto.CreateTaskRequestDto;
+import com.example.taskservice.api.v1.dto.UpdateTaskRequestDto;
 import com.example.taskservice.api.v1.response.ApiResponse;
 
 import com.example.taskservice.entity.Task;
@@ -62,4 +63,29 @@ public class TaskController {
                 task
         );
     }
+
+    @PutMapping("/{id}")
+    public ApiResponse<Task> updateTask(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateTaskRequestDto requestDto
+            ){
+        Task updatedTask = taskService.updateTask(id, requestDto);
+
+        return new ApiResponse<>(
+                true,
+                "Task updated successfully.",
+                updatedTask
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    public ApiResponse<String> deleteTask(@PathVariable Long id){
+        taskService.deleteTask(id);
+         return new ApiResponse<>(
+                 true,
+                 "Task deleted successfully.",
+                 null
+         );
+    }
+
 }
