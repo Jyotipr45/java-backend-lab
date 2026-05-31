@@ -1,7 +1,9 @@
 package com.example.taskservice.service;
 
 import com.example.taskservice.api.v1.dto.CreateTaskRequestDto;
+import com.example.taskservice.api.v1.dto.TaskResponseDto;
 import com.example.taskservice.api.v1.dto.UpdateTaskRequestDto;
+import com.example.taskservice.common.mapper.TaskMapper;
 import com.example.taskservice.entity.Task;
 import com.example.taskservice.exception.ResourceNotFoundException;
 import com.example.taskservice.repository.TaskRepository;
@@ -19,31 +21,44 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public Task createTask(CreateTaskRequestDto requestDto){
-        Task task = new Task(requestDto.getTitle());
-        return taskRepository.save(task);
+    public TaskResponseDto createTask(CreateTaskRequestDto requestDto){
+        Task task = new Task(
+                requestDto.getTitle()
+        );
+
+        Task savedTask = taskRepository.save(task);
+
+        return TaskMapper.toResponseDto(savedTask);
     }
 
     @Override
-    public List<Task> getAllTasks(){
-        return taskRepository.findAll();
+    public List<TaskResponseDto> getAllTasks(){
+        return taskRepository.findAll()
+                .stream()
+                .map(TaskMapper::toResponseDto)
+                .toList();
     }
 
     @Override
-    public Task getTaskById(Long id){
-        return taskRepository.findById(id)
+    public TaskResponseDto getTaskById(Long id){
+        Task task =  taskRepository.findById(id)
                 .orElseThrow(() ->
                             new ResourceNotFoundException("Task not found with id: " + id)
                         );
+
+        return TaskMapper.toResponseDto(task);
     }
 
     @Override
-    public Task updateTask(Long id, UpdateTaskRequestDto requestDto) {
+    public TaskResponseDto updateTask(Long id, UpdateTaskRequestDto requestDto) {
         Task existingTask = taskRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Task not found with id: " + id));
+
         existingTask.setTitle(requestDto.getTitle());
-        return taskRepository.save(existingTask);
+
+        Task updatedTask = taskRepository.save(existingTask);
+        return TaskMapper.toResponseDto(updatedTask);
     }
 
     @Override

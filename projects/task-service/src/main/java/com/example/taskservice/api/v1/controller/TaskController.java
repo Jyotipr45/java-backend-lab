@@ -1,6 +1,7 @@
 package com.example.taskservice.api.v1.controller;
 
 import com.example.taskservice.api.v1.dto.CreateTaskRequestDto;
+import com.example.taskservice.api.v1.dto.TaskResponseDto;
 import com.example.taskservice.api.v1.dto.UpdateTaskRequestDto;
 import com.example.taskservice.api.v1.response.ApiResponse;
 
@@ -32,9 +33,9 @@ public class TaskController {
     }
 
     @PostMapping("/createTask")
-    public ApiResponse<Task> createTask(@Valid @RequestBody CreateTaskRequestDto requestDto){
+    public ApiResponse<TaskResponseDto> createTask(@Valid @RequestBody CreateTaskRequestDto requestDto){
 
-        Task createdTask = taskService.createTask(requestDto);
+        TaskResponseDto createdTask = taskService.createTask(requestDto);
         return new ApiResponse<>(
                 true,
                 "Task created Successfully.",
@@ -43,8 +44,8 @@ public class TaskController {
     }
 
     @GetMapping("/all")
-    public ApiResponse<List<Task>> getAllTask(){
-        List<Task> tasks =  taskService.getAllTasks();
+    public ApiResponse<List<TaskResponseDto>> getAllTask(){
+        List<TaskResponseDto> tasks =  taskService.getAllTasks();
 
         return new ApiResponse<>(
                 true,
@@ -54,8 +55,8 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<Task> getTaskById(@PathVariable Long id){
-        Task task = taskService.getTaskById(id);
+    public ApiResponse<TaskResponseDto> getTaskById(@PathVariable Long id){
+        TaskResponseDto task = taskService.getTaskById(id);
 
         return new ApiResponse<>(
                 true,
@@ -65,11 +66,11 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<Task> updateTask(
+    public ApiResponse<TaskResponseDto> updateTask(
             @PathVariable Long id,
             @Valid @RequestBody UpdateTaskRequestDto requestDto
             ){
-        Task updatedTask = taskService.updateTask(id, requestDto);
+        TaskResponseDto updatedTask = taskService.updateTask(id, requestDto);
 
         return new ApiResponse<>(
                 true,
