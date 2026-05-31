@@ -9,6 +9,8 @@ import com.example.taskservice.entity.Task;
 import com.example.taskservice.service.TaskService;
 import jakarta.validation.Valid;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,13 +35,17 @@ public class TaskController {
     }
 
     @PostMapping("/createTask")
-    public ApiResponse<TaskResponseDto> createTask(@Valid @RequestBody CreateTaskRequestDto requestDto){
+    public ResponseEntity<ApiResponse<TaskResponseDto>> createTask(@Valid @RequestBody CreateTaskRequestDto requestDto){
 
         TaskResponseDto createdTask = taskService.createTask(requestDto);
-        return new ApiResponse<>(
+        ApiResponse<TaskResponseDto> response=  new ApiResponse<>(
                 true,
                 "Task created Successfully.",
                 createdTask
+        );
+        return new ResponseEntity<>(
+                response,
+                HttpStatus.CREATED
         );
     }
 
@@ -79,14 +85,26 @@ public class TaskController {
         );
     }
 
+//    @DeleteMapping("/{id}")
+//    public ApiResponse<String> deleteTask(@PathVariable Long id){
+//        taskService.deleteTask(id);
+//         return new ApiResponse<>(
+//                 true,
+//                 "Task deleted successfully.",
+//                 null
+//         );
+//    }
+
     @DeleteMapping("/{id}")
-    public ApiResponse<String> deleteTask(@PathVariable Long id){
+    public ResponseEntity<Void> deleteTask(
+            @PathVariable Long id
+    ) {
+
         taskService.deleteTask(id);
-         return new ApiResponse<>(
-                 true,
-                 "Task deleted successfully.",
-                 null
-         );
+
+        return new ResponseEntity<>(
+                HttpStatus.NO_CONTENT
+        );
     }
 
 }
