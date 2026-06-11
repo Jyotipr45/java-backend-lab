@@ -53,9 +53,11 @@ public class TaskController {
     @GetMapping("/all")
     public ApiResponse<PageResponseDto<TaskResponseDto>> getAllTask(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "25") int size
+            @RequestParam(defaultValue = "25") int size,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "desc") String direction
     ){
-        PageResponseDto<TaskResponseDto> tasks =  taskService.getAllTasks(page, size);
+        PageResponseDto<TaskResponseDto> tasks =  taskService.getAllTasks(page, size, sortBy, direction);
 
         return new ApiResponse<>(
                 true,

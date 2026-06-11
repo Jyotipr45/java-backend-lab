@@ -12,7 +12,7 @@ public interface TaskService {
     // Create Task
     TaskResponseDto createTask(CreateTaskRequestDto requestDto);
     // Get all Tasks
-    PageResponseDto<TaskResponseDto> getAllTasks(int page, int size);
+    PageResponseDto<TaskResponseDto> getAllTasks(int page, int size, String sortBy, String direction);
     // Get Task by ID
     TaskResponseDto getTaskById(Long id);
     // Update Task by ID

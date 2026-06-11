@@ -12,6 +12,7 @@ import com.jash.taskservice.repository.TaskRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,8 +44,18 @@ public class TaskServiceImpl implements TaskService{
 //                .map(TaskMapper::toResponseDto)
 //                .toList();
 //    }
-    public PageResponseDto<TaskResponseDto> getAllTasks(int page, int size){
-        Pageable pageable = PageRequest.of(page, size);
+    public PageResponseDto<TaskResponseDto> getAllTasks(int page, int size, String sortBy, String direction){
+        Sort.Direction sortDirection =
+                direction.equalsIgnoreCase("asc")
+                        ? Sort.Direction.ASC
+                        : Sort.Direction.DESC;
+
+        Pageable pageable =
+                PageRequest.of(
+                        page,
+                        size,
+                        Sort.by(sortDirection, sortBy)
+                );
 
         Page<TaskResponseDto> taskPage =  taskRepository.findAll(pageable)
                 .map(TaskMapper::toResponseDto);

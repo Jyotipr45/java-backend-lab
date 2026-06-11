@@ -10,17 +10,17 @@ import java.time.LocalDateTime;
 public class ApiResponse<T> {
     public boolean success;
     public String message;
-    public T results;
+    public T data;
     public LocalDateTime timestamp;
 
     public ApiResponse() {
         this.timestamp = LocalDateTime.now();
     }
 
-    public ApiResponse(boolean success, String message, T results){
+    public ApiResponse(boolean success, String message, T data){
         this.success = success;
         this.message = message;
-        this.results = results;
+        this.data = data;
         this.timestamp = LocalDateTime.now();
     }
 }
