@@ -15,6 +15,6 @@ public class TaskResponseDto {
 
     public Long id;
     public String title;
-    public LocalDateTime createAt;
+    public LocalDateTime createdAt;
     public LocalDateTime updatedAt;
 }

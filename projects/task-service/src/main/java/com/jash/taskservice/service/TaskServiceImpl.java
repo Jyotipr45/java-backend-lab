@@ -1,12 +1,17 @@
 package com.jash.taskservice.service;
 
 import com.jash.taskservice.api.v1.dto.CreateTaskRequestDto;
+import com.jash.taskservice.api.v1.dto.PageResponseDto;
 import com.jash.taskservice.api.v1.dto.TaskResponseDto;
 import com.jash.taskservice.api.v1.dto.UpdateTaskRequestDto;
 import com.jash.taskservice.common.mapper.TaskMapper;
 import com.jash.taskservice.entity.Task;
 import com.jash.taskservice.exception.ResourceNotFoundException;
 import com.jash.taskservice.repository.TaskRepository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,11 +37,26 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public List<TaskResponseDto> getAllTasks(){
-        return taskRepository.findAll()
-                .stream()
-                .map(TaskMapper::toResponseDto)
-                .toList();
+//    public List<TaskResponseDto> getAllTasks(int page, int size){
+//        return taskRepository.findAll()
+//                .stream()
+//                .map(TaskMapper::toResponseDto)
+//                .toList();
+//    }
+    public PageResponseDto<TaskResponseDto> getAllTasks(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<TaskResponseDto> taskPage =  taskRepository.findAll(pageable)
+                .map(TaskMapper::toResponseDto);
+
+        return new PageResponseDto<>(
+                taskPage.getContent(),
+                taskPage.getTotalElements(),
+                taskPage.getTotalPages(),
+                taskPage.getNumber(),
+                taskPage.getSize(),
+                taskPage.isLast()
+        );
     }
 
     @Override

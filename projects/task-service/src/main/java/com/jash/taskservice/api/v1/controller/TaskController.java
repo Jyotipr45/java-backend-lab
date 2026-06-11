@@ -1,6 +1,7 @@
 package com.jash.taskservice.api.v1.controller;
 
 import com.jash.taskservice.api.v1.dto.CreateTaskRequestDto;
+import com.jash.taskservice.api.v1.dto.PageResponseDto;
 import com.jash.taskservice.api.v1.dto.TaskResponseDto;
 import com.jash.taskservice.api.v1.dto.UpdateTaskRequestDto;
 import com.jash.taskservice.api.v1.response.ApiResponse;
@@ -8,6 +9,7 @@ import com.jash.taskservice.api.v1.response.ApiResponse;
 import com.jash.taskservice.service.TaskService;
 import jakarta.validation.Valid;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,8 +51,11 @@ public class TaskController {
     }
 
     @GetMapping("/all")
-    public ApiResponse<List<TaskResponseDto>> getAllTask(){
-        List<TaskResponseDto> tasks =  taskService.getAllTasks();
+    public ApiResponse<PageResponseDto<TaskResponseDto>> getAllTask(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "25") int size
+    ){
+        PageResponseDto<TaskResponseDto> tasks =  taskService.getAllTasks(page, size);
 
         return new ApiResponse<>(
                 true,
